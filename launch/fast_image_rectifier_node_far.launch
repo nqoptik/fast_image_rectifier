@@ -2,11 +2,16 @@
 <launch>
     <!-- Run the fast_image_rectifier_node for the far camera -->
     <arg name="name_space" default="far_camera" />
+    <arg name="camera_tf_frame" default="pylon_camera_far" />
+    <arg name="camera_name" default="pylon_camera_node" />
     <arg name="camera_info_url" default="file://${ROS_HOME}/camera_info/acA640_750um_21763202_640_480_60mm.yaml" />
 
     <group ns="$(arg name_space)">
         <!-- Run the fast_image_rectifier_node -->
         <node name="fast_image_rectifier_node" pkg="fast_image_rectifier" type="fast_image_rectifier_node" output="screen">
+            <!-- The image raw topic -->
+            <param name="image_raw_topic" value="/$(arg name_space)/$(arg camera_name)/image_raw" />
+
             <!-- The path to the camera_info file -->
             <param name="camera_info_url" value="$(arg camera_info_url)" />
         </node>

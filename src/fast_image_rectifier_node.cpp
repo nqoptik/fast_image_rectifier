@@ -8,7 +8,7 @@
  * 
  */
 
-#include "fast_image_rectifier/fast_image_rectifier.h"
+#include "fast_image_rectifier/fast_image_rectifier.hpp"
 
 /**
  * @brief The main function.

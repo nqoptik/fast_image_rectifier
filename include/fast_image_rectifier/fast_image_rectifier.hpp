@@ -1,5 +1,5 @@
 /**
- * @file fast_image_rectifier.h
+ * @file fast_image_rectifier.hpp
  * @author Nguyen Quang <quang@infiniumrobotics.com>
  * @brief The header file of the FastImageRectifier class.
  * @since 0.0.1
@@ -8,8 +8,8 @@
  * 
  */
 
-#ifndef _FAST_EXPOSURE_CONTROLLER_H_
-#define _FAST_EXPOSURE_CONTROLLER_H_
+#ifndef FAST_EXPOSURE_CONTROLLER_HPP
+#define FAST_EXPOSURE_CONTROLLER_HPP
 
 #include <iostream>
 #include <string>
@@ -28,9 +28,18 @@ class FastImageRectifier {
    private:
     ros::NodeHandle node;  //!< @brief The ros node handle. @since 0.0.1
 
+    std::string image_raw_topic;    //!< @brief The image raw topic. @since 0.0.1
+    ros::Subscriber image_raw_sub;  //!< @brief The image raw subscriber. @since 0.0.1
+
     camera_info_manager::CameraInfoManager* camera_info_manager_;  //!< @brief The CameraInfoManager object. @since 0.0.1
     std::string camera_info_url;                                   //!< @brief The path to the camera_info file. @since 0.0.1
     sensor_msgs::CameraInfo camera_info;                           //!< @brief The camera infomation. @since 0.0.1
+    cv::Mat camera_matrix;                                         //!< @brief The camera matrix. @since 0.0.1
+    cv::Mat dis_coef;                                              //!< @brief The camera distortion coefficients. @since 0.0.1
+    cv::Mat undist_map_1, undist_map_2;                            //!< @brief The undistortion rectify maps. @since 0.0.1
+
+    image_transport::Publisher image_rect_pub;  //!< @brief The rectified image publisher. @since 0.0.1
+    ros::Publisher camera_info_pub;             //!< @brief The camera info publisher
 
    public:
     /**
@@ -58,4 +67,4 @@ class FastImageRectifier {
     void image_callback(const sensor_msgs::ImageConstPtr& img_msg);
 };
 
-#endif /* _FAST_EXPOSURE_CONTROLLER_H_ */
+#endif  // FAST_EXPOSURE_CONTROLLER_HPP
