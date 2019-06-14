@@ -14,7 +14,7 @@ FastImageRectifier::FastImageRectifier(ros::NodeHandle node) {
     this->node = node;
 
     // Initialise the CameraInfoManager
-    camera_info_manager_ = new camera_info_manager::CameraInfoManager(node);
+    camera_info_manager_ = std::make_shared<camera_info_manager::CameraInfoManager>(node);
 
     // Initialise the image raw subscriber
     node.param<std::string>("image_raw_topic", image_raw_topic, "image_raw");
@@ -46,7 +46,6 @@ FastImageRectifier::FastImageRectifier(ros::NodeHandle node) {
 }
 
 FastImageRectifier::~FastImageRectifier() {
-    delete camera_info_manager_;
     ros::shutdown();
 }
 
