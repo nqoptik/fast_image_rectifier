@@ -197,6 +197,10 @@ install(TARGETS fast_image_rectifier_node
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
+install(FILES launch/fast_image_rectifier_node_far.launch
+              launch/fast_image_rectifier_node_near.launch
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
 #############
 ## Testing ##
 #############

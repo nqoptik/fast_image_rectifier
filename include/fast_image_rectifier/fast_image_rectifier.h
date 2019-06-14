@@ -15,8 +15,11 @@
 #include <string>
 
 #include <ros/ros.h>
+#include <sensor_msgs/CameraInfo.h>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
+#include <camera_info_manager/camera_info_manager.h>
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -24,6 +27,8 @@
 class FastImageRectifier {
    private:
     ros::NodeHandle node;  //!< @brief The ros node handle. @since 0.0.1
+
+    std::string camera_info_url;  //!< @brief The path to the camera_info file. @since 0.0.1
 
    public:
     /**
