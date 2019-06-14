@@ -28,7 +28,9 @@ class FastImageRectifier {
    private:
     ros::NodeHandle node;  //!< @brief The ros node handle. @since 0.0.1
 
-    std::string camera_info_url;  //!< @brief The path to the camera_info file. @since 0.0.1
+    camera_info_manager::CameraInfoManager* camera_info_manager_;  //!< @brief The CameraInfoManager object. @since 0.0.1
+    std::string camera_info_url;                                   //!< @brief The path to the camera_info file. @since 0.0.1
+    sensor_msgs::CameraInfo camera_info;                           //!< @brief The camera infomation. @since 0.0.1
 
    public:
     /**

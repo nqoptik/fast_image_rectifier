@@ -12,9 +12,21 @@
 
 FastImageRectifier::FastImageRectifier(ros::NodeHandle node) {
     this->node = node;
+
+    // Initialise the CameraInfoManager
+    camera_info_manager_ = new camera_info_manager::CameraInfoManager(node);
+
+    // Initialise the camera_info
+    node.param<std::string>("camera_info_url", camera_info_url, "");
+    if (camera_info_manager_->loadCameraInfo(camera_info_url)) {
+        camera_info = camera_info_manager_->getCameraInfo();
+    } else {
+        ROS_ERROR("Invalid camera_info_url!");
+    }
 }
 
 FastImageRectifier::~FastImageRectifier() {
+    delete camera_info_manager_;
     ros::shutdown();
 }
 
