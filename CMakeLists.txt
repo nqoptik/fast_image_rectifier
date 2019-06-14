@@ -10,6 +10,9 @@ project(fast_image_rectifier)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
+
+find_package(OpenCV 3 REQUIRED)
+
 find_package(catkin REQUIRED
              COMPONENTS camera_info_manager
                         cv_bridge
@@ -151,6 +154,11 @@ include_directories(# include
 #   ${catkin_LIBRARIES}
 # )
 
+add_executable(fast_image_rectifier_node src/fast_image_rectifier.cpp
+                                         src/fast_image_rectifier_node.cpp)
+target_link_libraries(fast_image_rectifier_node ${catkin_LIBRARIES}
+                      ${OpenCV_LIBS})
+
 #############
 ## Install ##
 #############
@@ -171,6 +179,9 @@ include_directories(# include
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+
+install(TARGETS fast_image_rectifier_node
+        RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/

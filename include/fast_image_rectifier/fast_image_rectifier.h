@@ -1,0 +1,54 @@
+/**
+ * @file fast_image_rectifier.h
+ * @author Nguyen Quang <quang@infiniumrobotics.com>
+ * @brief The header file of the FastImageRectifier class.
+ * @since 0.0.1
+ * 
+ * @copyright Copyright (c) 2019, Infinium Robotics, all rights reserved.
+ * 
+ */
+
+#ifndef _FAST_EXPOSURE_CONTROLLER_H_
+#define _FAST_EXPOSURE_CONTROLLER_H_
+
+#include <iostream>
+#include <string>
+
+#include <ros/ros.h>
+#include <cv_bridge/cv_bridge.h>
+#include <image_transport/image_transport.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
+class FastImageRectifier {
+   private:
+    ros::NodeHandle node;  //!< @brief The ros node handle. @since 0.0.1
+
+   public:
+    /**
+     * @brief Construct a new FastImageRectifier object.
+     * 
+     * @param[in] node The ros node handle.
+     * @since 0.0.1
+     */
+    FastImageRectifier(ros::NodeHandle node);
+
+    /**
+     * @brief Destroy the FastImageRectifier object.
+     * 
+     * @since 0.0.1
+     * 
+     */
+    ~FastImageRectifier();
+
+    /**
+     * @brief The image callback function.
+     * 
+     * @param[in] img_msg The image message.
+     * @since 0.0.1
+     */
+    void image_callback(const sensor_msgs::ImageConstPtr& img_msg);
+};
+
+#endif /* _FAST_EXPOSURE_CONTROLLER_H_ */
