@@ -26,20 +26,20 @@
 
 class FastImageRectifier {
    private:
-    ros::NodeHandle node;  //!< @brief The ros node handle. @since 0.0.1
+    ros::NodeHandle node_;  //!< @brief The ros node handle. @since 0.0.1
 
-    std::string image_raw_topic;    //!< @brief The image raw topic. @since 0.0.1
-    ros::Subscriber image_raw_sub;  //!< @brief The image raw subscriber. @since 0.0.1
+    std::string image_raw_topic_;    //!< @brief The image raw topic. @since 0.0.1
+    ros::Subscriber image_raw_sub_;  //!< @brief The image raw subscriber. @since 0.0.1
 
-    std::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;  //!< @brief The CameraInfoManager object. @since 0.0.1
-    std::string camera_info_url;                                                   //!< @brief The path to the camera_info file. @since 0.0.1
-    sensor_msgs::CameraInfo camera_info;                                           //!< @brief The camera infomation. @since 0.0.1
-    cv::Mat camera_matrix;                                                         //!< @brief The camera matrix. @since 0.0.1
-    cv::Mat dis_coef;                                                              //!< @brief The camera distortion coefficients. @since 0.0.1
-    cv::Mat undist_map_1, undist_map_2;                                            //!< @brief The undistortion rectify maps. @since 0.0.1
+    std::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_ptr_;  //!< @brief The CameraInfoManager object. @since 0.0.1
+    std::string camera_info_url_;                                                      //!< @brief The path to the camera_info file. @since 0.0.1
+    sensor_msgs::CameraInfo camera_info_;                                              //!< @brief The camera infomation. @since 0.0.1
+    cv::Mat camera_matrix_;                                                            //!< @brief The camera matrix. @since 0.0.1
+    cv::Mat dis_coef_;                                                                 //!< @brief The camera distortion coefficients. @since 0.0.1
+    cv::Mat undist_map_1_, undist_map_2_;                                              //!< @brief The undistortion rectify maps. @since 0.0.1
 
-    image_transport::Publisher image_rect_pub;  //!< @brief The rectified image publisher. @since 0.0.1
-    ros::Publisher camera_info_pub;             //!< @brief The camera info publisher
+    image_transport::Publisher image_rect_pub_;  //!< @brief The rectified image publisher. @since 0.0.1
+    ros::Publisher camera_info_pub_;             //!< @brief The camera info publisher
 
    public:
     /**
