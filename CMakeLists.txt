@@ -1,19 +1,17 @@
 cmake_minimum_required(VERSION 3.1)
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 project(fast_image_rectifier)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+## Compile with the highest warning level
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-
-find_package(OpenCV 3 REQUIRED)
-
 find_package(catkin REQUIRED
              COMPONENTS camera_info_manager
                         cv_bridge
@@ -22,7 +20,7 @@ find_package(catkin REQUIRED
                         rospy)
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(OpenCV 3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -109,12 +107,12 @@ find_package(catkin REQUIRED
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-  #  INCLUDE_DIRS include
-  #  LIBRARIES fast_image_rectifier
-  #  CATKIN_DEPENDS camera_info_manager cv_bridge image_transport roscpp rospy
-  #  DEPENDS system_lib
-  )
+catkin_package(CATKIN_DEPENDS
+               camera_info_manager
+               cv_bridge
+               image_transport
+               roscpp
+               rospy)
 
 ###########
 ## Build ##
@@ -122,8 +120,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(# include
-                    ${catkin_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/include)
+include_directories(${catkin_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/include)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -139,6 +136,8 @@ include_directories(# include
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/fast_image_rectifier_node.cpp)
+add_executable(fast_image_rectifier_node src/fast_image_rectifier.cpp
+                                         src/fast_image_rectifier_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -154,9 +153,6 @@ include_directories(# include
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-
-add_executable(fast_image_rectifier_node src/fast_image_rectifier.cpp
-                                         src/fast_image_rectifier_node.cpp)
 target_link_libraries(fast_image_rectifier_node ${catkin_LIBRARIES}
                       ${OpenCV_LIBS})
 
@@ -180,7 +176,6 @@ target_link_libraries(fast_image_rectifier_node ${catkin_LIBRARIES}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
-
 install(TARGETS fast_image_rectifier_node
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
@@ -197,7 +192,6 @@ install(TARGETS fast_image_rectifier_node
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-
 install(FILES launch/fast_image_rectifier_node_far.launch
               launch/fast_image_rectifier_node_near.launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
