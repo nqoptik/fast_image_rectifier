@@ -14,34 +14,35 @@
 #include <iostream>
 #include <string>
 
-#include <ros/ros.h>
-#include <sensor_msgs/CameraInfo.h>
+#include <camera_info_manager/camera_info_manager.h>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
-#include <camera_info_manager/camera_info_manager.h>
+#include <ros/ros.h>
+#include <sensor_msgs/CameraInfo.h>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-class FastImageRectifier {
-   private:
-    ros::NodeHandle node_;  //!< @brief The ros node handle. @since 0.0.1
+class FastImageRectifier
+{
+private:
+    ros::NodeHandle node_; //!< @brief The ros node handle. @since 0.0.1
 
-    std::string image_raw_topic_;    //!< @brief The image raw topic. @since 0.0.1
-    ros::Subscriber image_raw_sub_;  //!< @brief The image raw subscriber. @since 0.0.1
+    std::string image_raw_topic_;   //!< @brief The image raw topic. @since 0.0.1
+    ros::Subscriber image_raw_sub_; //!< @brief The image raw subscriber. @since 0.0.1
 
-    std::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_ptr_;  //!< @brief The CameraInfoManager object. @since 0.0.1
-    std::string camera_info_url_;                                                      //!< @brief The path to the camera_info file. @since 0.0.1
-    sensor_msgs::CameraInfo camera_info_;                                              //!< @brief The camera infomation. @since 0.0.1
-    cv::Mat camera_matrix_;                                                            //!< @brief The camera matrix. @since 0.0.1
-    cv::Mat dis_coef_;                                                                 //!< @brief The camera distortion coefficients. @since 0.0.1
-    cv::Mat undist_map_1_, undist_map_2_;                                              //!< @brief The undistortion rectify maps. @since 0.0.1
+    std::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_ptr_; //!< @brief The CameraInfoManager object. @since 0.0.1
+    std::string camera_info_url_;                                                     //!< @brief The path to the camera_info file. @since 0.0.1
+    sensor_msgs::CameraInfo camera_info_;                                             //!< @brief The camera infomation. @since 0.0.1
+    cv::Mat camera_matrix_;                                                           //!< @brief The camera matrix. @since 0.0.1
+    cv::Mat dis_coef_;                                                                //!< @brief The camera distortion coefficients. @since 0.0.1
+    cv::Mat undist_map_1_, undist_map_2_;                                             //!< @brief The undistortion rectify maps. @since 0.0.1
 
-    image_transport::Publisher image_rect_pub_;  //!< @brief The rectified image publisher. @since 0.0.1
-    ros::Publisher camera_info_pub_;             //!< @brief The camera info publisher
+    image_transport::Publisher image_rect_pub_; //!< @brief The rectified image publisher. @since 0.0.1
+    ros::Publisher camera_info_pub_;            //!< @brief The camera info publisher
 
-   public:
+public:
     /**
      * @brief Construct a new FastImageRectifier object.
      * 
@@ -67,4 +68,4 @@ class FastImageRectifier {
     void image_callback(const sensor_msgs::ImageConstPtr& img_msg);
 };
 
-#endif  // FAST_EXPOSURE_CONTROLLER_HPP
+#endif // FAST_EXPOSURE_CONTROLLER_HPP

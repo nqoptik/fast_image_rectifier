@@ -11,7 +11,8 @@
 #include "fast_image_rectifier/fast_image_rectifier.hpp"
 
 FastImageRectifier::FastImageRectifier(ros::NodeHandle node)
-    : node_(node) {
+    : node_(node)
+{
     // Initialise the CameraInfoManager
     camera_info_manager_ptr_ = std::make_shared<camera_info_manager::CameraInfoManager>(node_);
 
@@ -21,9 +22,12 @@ FastImageRectifier::FastImageRectifier(ros::NodeHandle node)
 
     // Initialise the camera_info
     node_.param<std::string>("camera_info_url", camera_info_url_, "");
-    if (camera_info_manager_ptr_->loadCameraInfo(camera_info_url_)) {
+    if (camera_info_manager_ptr_->loadCameraInfo(camera_info_url_))
+    {
         camera_info_ = camera_info_manager_ptr_->getCameraInfo();
-    } else {
+    }
+    else
+    {
         ROS_ERROR("Invalid camera_info_url!");
     }
 
@@ -44,15 +48,20 @@ FastImageRectifier::FastImageRectifier(ros::NodeHandle node)
     camera_info_pub_ = node_.advertise<sensor_msgs::CameraInfo>("camera_info", 1);
 }
 
-FastImageRectifier::~FastImageRectifier() {
+FastImageRectifier::~FastImageRectifier()
+{
     ros::shutdown();
 }
 
-void FastImageRectifier::image_callback(const sensor_msgs::ImageConstPtr& img_msg) {
+void FastImageRectifier::image_callback(const sensor_msgs::ImageConstPtr& img_msg)
+{
     cv::Mat image;
-    try {
+    try
+    {
         image = cv_bridge::toCvShare(img_msg, "mono8")->image;
-    } catch (cv_bridge::Exception& e) {
+    }
+    catch (cv_bridge::Exception& e)
+    {
         ROS_ERROR("Could not convert from '%s' to 'mono8'.", img_msg->encoding.c_str());
     }
 

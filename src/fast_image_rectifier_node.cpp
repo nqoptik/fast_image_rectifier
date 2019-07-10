@@ -18,7 +18,8 @@
  * @return The status value.
  * @since 0.0.1
  */
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     ros::init(argc, argv, "fast_image_rectifier_node");
     ros::NodeHandle node("~");
     FastImageRectifier fast_image_rectifier(node);
