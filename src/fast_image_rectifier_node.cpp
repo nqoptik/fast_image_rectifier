@@ -21,8 +21,8 @@
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "fast_image_rectifier_node");
-    ros::NodeHandle node("~");
-    FastImageRectifier fast_image_rectifier(node);
+    ros::NodeHandle node_handle("~");
+    FastImageRectifier fast_image_rectifier(node_handle);
     ros::spin();
     return 0;
 }

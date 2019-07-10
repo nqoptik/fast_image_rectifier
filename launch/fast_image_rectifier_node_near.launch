@@ -10,7 +10,7 @@
         <!-- Run the fast_image_rectifier_node -->
         <node name="fast_image_rectifier_node" pkg="fast_image_rectifier" type="fast_image_rectifier_node" output="screen">
             <!-- The image raw topic -->
-            <param name="image_raw_topic" value="/$(arg name_space)/$(arg camera_name)/image_raw" />
+            <param name="raw_image_topic" value="/$(arg name_space)/$(arg camera_name)/image_raw" />
 
             <!-- The path to the camera_info file -->
             <param name="camera_info_url" value="$(arg camera_info_url)" />
