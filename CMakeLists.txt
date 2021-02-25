@@ -136,6 +136,8 @@ include_directories(${catkin_INCLUDE_DIRS} include)
 add_executable(fast_image_rectifier_node src/fast_image_rectifier.cpp
                                          src/fast_image_rectifier_node.cpp)
 
+add_executable(image_saver_node src/image_saver.cpp src/image_saver_node.cpp)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -152,6 +154,8 @@ add_executable(fast_image_rectifier_node src/fast_image_rectifier.cpp
 # )
 target_link_libraries(fast_image_rectifier_node ${catkin_LIBRARIES}
                       ${OpenCV_LIBS})
+
+target_link_libraries(image_saver_node ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 #############
 ## Install ##
@@ -173,7 +177,7 @@ target_link_libraries(fast_image_rectifier_node ${catkin_LIBRARIES}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
-install(TARGETS fast_image_rectifier_node
+install(TARGETS fast_image_rectifier_node image_saver_node
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ## Mark cpp header files for installation
