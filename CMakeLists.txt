@@ -12,15 +12,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED
-             COMPONENTS camera_info_manager
-                        cv_bridge
-                        image_transport
-                        roscpp
-                        rospy)
+find_package(catkin REQUIRED COMPONENTS camera_info_manager cv_bridge
+                                        image_transport roscpp rospy)
 
 ## System dependencies are found with CMake's conventions
-find_package(OpenCV 3 REQUIRED)
+find_package(OpenCV REQUIRED)
+if(NOT ${OpenCV_VERSION} STRGREATER "2.4")
+    message(FATAL_ERROR "OpenCV_VERSION has to > 2.4")
+endif()
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -107,12 +106,8 @@ find_package(OpenCV 3 REQUIRED)
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(CATKIN_DEPENDS
-               camera_info_manager
-               cv_bridge
-               image_transport
-               roscpp
-               rospy)
+catkin_package(CATKIN_DEPENDS camera_info_manager cv_bridge image_transport
+               roscpp rospy)
 
 ###########
 ## Build ##
@@ -120,7 +115,9 @@ catkin_package(CATKIN_DEPENDS
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(${catkin_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/include)
+# include_directories(# include
+# ${catkin_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS} include)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
